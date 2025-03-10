@@ -4,32 +4,30 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Table(name = "schedule_history")
-public class ScheduleHistory {
+@Table(name = "ai_predictions")
+public class AIPrediction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
 
-    private LocalDateTime previousStartTime;
-    private LocalDateTime previousEndTime;
-    private LocalDateTime newStartTime;
-    private LocalDateTime newEndTime;
+    @Column(nullable = false)
+    private LocalDateTime predictedEndTime;
 
-    @ManyToOne
-    @JoinColumn(name = "changed_by", nullable = false)
-    private User changedBy;
+    @Column(nullable = false)
+    private Double delayProbability; // 0.0 ~ 1.0
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime changedAt;
+    private LocalDateTime createdAt;
 }

@@ -34,6 +34,4 @@ public class ScheduleHistory {
 
     @Column(nullable = false, updatable = false)
     private Timestamp changedAt = new Timestamp(System.currentTimeMillis());
-
-    // Getter, Setter, Constructor
 }

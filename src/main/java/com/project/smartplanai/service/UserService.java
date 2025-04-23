@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+/*    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public User registerUser(String username, String email, String rawPassword, Role role) {
@@ -45,7 +45,7 @@ public class UserService {
     // 사용자 로그인 시 비밀번호 확인 (예시)
     public boolean verifyPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
-    }
+    }*/
 }
 
 

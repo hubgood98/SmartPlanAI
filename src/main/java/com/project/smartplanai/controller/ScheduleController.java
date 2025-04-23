@@ -2,6 +2,9 @@ package com.project.smartplanai.controller;
 
 import com.project.smartplanai.entity.Schedule;
 import com.project.smartplanai.service.ScheduleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,23 +12,21 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
+@Tag(name="일정 API", description = "스마트팜 일정 CRUD 및 OpenSearch 연동 API")
 @RequestMapping("/api/schedules")
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    public ScheduleController(ScheduleService scheduleService) {
-        this.scheduleService = scheduleService;
-    }
-
-    // 일정 생성 API
-    @PostMapping
+    @PostMapping("/create")
+    @Operation(summary = "일정 생성", description = "DB(추가예정)와 OpenSearch에 동시에 일정을 저장함")
     public ResponseEntity<Schedule> createSchedule(@RequestBody Schedule schedule) {
         return ResponseEntity.ok(scheduleService.create(schedule));
     }
 
-    // 모든 일정 조회 API
     @GetMapping
-    public ResponseEntity<List<Schedule>> getAllSchedules() {
+    @Operation(summary = "전체 일정 조회", description = "등록된 모든 일정을 반환합니다.")
+    public ResponseEntity<List<Schedule>> getAll() {
         return ResponseEntity.ok(scheduleService.getAllSchedules());
     }
 

@@ -28,6 +28,7 @@ public class ScheduleService {
 
         Schedule saved = scheduleRepository.save(schedule);
 
+        //문서화를 통해 전송
         ScheduleDocument doc = ScheduleDocument.builder()
                 .id(saved.getId())
                 .title(saved.getTitle())

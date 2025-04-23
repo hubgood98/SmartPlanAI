@@ -18,7 +18,7 @@ SmartPlanAI는 AI 기반 일정 추천 및 자동 조정 시스템입니다. 프
 
 ### 백엔드 (Spring Boot)
 
-* Java 21 + Spring Boot 3.3
+* Java 21 + Spring Boot 2.7.18
 
 * Spring Data JPA (MySQL/PostgreSQL)
 

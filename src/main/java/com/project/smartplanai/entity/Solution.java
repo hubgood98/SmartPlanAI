@@ -1,38 +1,63 @@
 package com.project.smartplanai.entity;
 
 public class Solution {
+    public int[] solution(String[] park, String[] routes){
 
-    public static int solution(int[][] lines) {
+        int rows = park.length;
+        int cols = park[0].length();
 
-        int min=0 ,max = 0;
-        for (int[] line : lines) {
-            for (int j = 0; j < line.length; j++) {
-                if (line[j] > max) {
-                    max = line[j];
-                } else if (line[j] < min) {
-                    min = line[j];
+        char[][] parkMap = new char[rows][cols];
+
+        int x = 0,y = 0;
+
+        for(int i=0;i<parkMap.length;i++){
+            for(int j=0;j<rows;j++){
+                parkMap[i][j] = park[i].charAt(j);
+
+                //Start position init
+                if(parkMap[i][j] == 'S'){
+                    x = i;
+                    y = j;
                 }
             }
-        }
-        int[] cntV = new int [max - min + 1];
+        }//for end
 
-        for(int[] line : lines){
-            int start = line[0];
-            int end = line[1];
+        for(String route : routes){
+            String[] parts = route.split(" ");
+            String dir = parts[0]; //방향
+            int dist = Integer.parseInt(parts[1]); //distance
 
-            for(int i = start;i<end;i++){
-                cntV[i-min] += 1;
+            int dx=0 ,dy=0;
+
+            if (dir.equals("N")) dx = -1; //북
+            else if (dir.equals("S")) dx = 1; //남
+            else if (dir.equals("W")) dy = -1; //서
+            else if (dir.equals("E")) dy = 1; //동
+
+            int nx = x, ny = y;
+            boolean canMove = true; //init
+
+            for (int i = 0; i < dist; i++) {
+                nx += dx;
+                ny += dy;
+
+                // 공원 벗어나거나 장애물 만나면 이동 실패구현
+                if (nx < 0 || ny < 0 || nx >= rows || ny >= cols || parkMap[nx][ny] == 'X') {
+                    canMove = false;
+                    continue;
+                }
+            }
+
+            if (canMove) {
+                x = nx;
+                y = ny;
             }
         }
-        int cnt=0;
-        for(int a : cntV){
-             if(a>1){
-                 cnt++;
-             }
-        }
 
-        return cnt;
+        return new int[]{x, y};
     }
+
+
 
     public static void main(String[] args) {
 

@@ -1,8 +1,7 @@
 package com.project.smartplanai.entity;
 
 import com.project.smartplanai.enums.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Entity

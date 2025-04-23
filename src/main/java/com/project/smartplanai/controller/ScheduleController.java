@@ -20,7 +20,7 @@ public class ScheduleController {
     // 일정 생성 API
     @PostMapping
     public ResponseEntity<Schedule> createSchedule(@RequestBody Schedule schedule) {
-        return ResponseEntity.ok(scheduleService.createSchedule(schedule));
+        return ResponseEntity.ok(scheduleService.create(schedule));
     }
 
     // 모든 일정 조회 API

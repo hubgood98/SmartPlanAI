@@ -1,11 +1,11 @@
 package com.project.smartplanai.entity;
 
 import com.project.smartplanai.enums.*;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

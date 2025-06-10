@@ -30,6 +30,11 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.getAllSchedules());
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Schedule>> getByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(scheduleService.getSchedulesByUser(userId));
+    }
+
     // 특정 일정 조회 API
     @GetMapping("/{id}")
     public ResponseEntity<Schedule> getScheduleById(@PathVariable Long id) {

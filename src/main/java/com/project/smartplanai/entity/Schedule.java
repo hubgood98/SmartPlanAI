@@ -1,6 +1,7 @@
 package com.project.smartplanai.entity;
 
-import com.project.smartplanai.enums.*;
+import com.project.smartplanai.enums.Priority;
+import com.project.smartplanai.enums.ScheduleStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

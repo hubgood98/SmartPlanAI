@@ -17,12 +17,22 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain springSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/v3/api-docs/**","/swagger-ui.html","swagger-ui/**").permitAll()
-                .anyRequest().authenticated();//나머지는 인증 필요처리
+                .antMatchers(
+                        "/v3/api-docs/**",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/api/users/register",
+                        "/api/users/login"
+                ).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().disable()
+                .httpBasic().disable(); // REST API라면 굳이 UI 인증 비활성화
+
         return http.build();
     }
 }

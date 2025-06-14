@@ -1,5 +1,6 @@
 package com.project.smartplanai.service;
 
+import com.project.smartplanai.dto.login.UserRegisterRequest;
 import com.project.smartplanai.entity.User;
 import com.project.smartplanai.enums.Role;
 import com.project.smartplanai.repository.UserRepository;
@@ -17,15 +18,16 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    public User registerUser(String username, String email, String rawPassword, Role role) {
-        String encodedPassword = passwordEncoder.encode(rawPassword);
+    public void registerUser(UserRegisterRequest dto) {
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
         User newUser = User.builder()
-                .username(username)
-                .email(email)
+                .username(dto.getUsername())
+                .name(dto.getName())
+                .email(dto.getEmail())
                 .password(encodedPassword)
-                .role(role)
+                .role(Role.USER)
                 .build();
-        return userRepository.save(newUser);
+        userRepository.save(newUser);
     }
 
     public Optional<User> findByUsername(String username) {
@@ -45,7 +47,7 @@ public class UserService {
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             if (passwordEncoder.matches(rawPassword, user.getPassword())) {
-                return jwtUtil.generateToken(username);
+                return jwtUtil.createToken(user.getUsername(), user.getRole());
             }
         }
         return null;

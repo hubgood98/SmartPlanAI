@@ -49,4 +49,17 @@ public class UserController {
         Optional<User> user = userService.findByUsername(username);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @Operation(summary = "아이디 중복확인", description = "특정 유져를 중복확인")
+    @GetMapping("/check-username")
+    public ResponseEntity<?> checkUsername(@RequestParam String username) {
+        boolean exists = userService.isUsernameTaken(username);
+        return ResponseEntity.ok(exists); // true면 이미 사용중, false면 사용가능
+    }
+
+    @Operation(summary = "이메일 중복확인", description = "특정 유져를 중복확인")
+    @GetMapping("/check-email")
+    public ResponseEntity<?> checkEmail(@RequestParam String email) {
+        boolean exists = userService.isEmailTaken(email);
+        return ResponseEntity.ok(exists);
+    }
 }
